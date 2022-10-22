@@ -64,10 +64,13 @@ public class DragonTreasureGame extends PApplet {
     roomList.add(testRoom);
     Room startRoom = new StartRoom(2, this.loadImage("images" + File.separator + "2.jpg"));
     roomList.add(startRoom);
+    TreasureRoom.setTreasureBackground(this.loadImage("images" + File.separator + "treasure.jpg"));
+    Room treasureRoom = new TreasureRoom(3);
+    roomList.add(treasureRoom);
   }
 
   public void draw() {
-    roomList.get(1).draw();
+    roomList.get(2).draw();
   }
 
   public static void main(String[] args) {
