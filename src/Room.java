@@ -49,8 +49,9 @@ public class Room {
    * @param image       the image that should be used as background when drawing this Room
    */
   public Room(int ID, String description, processing.core.PImage image) {
-    this.ID = ID;
     this.description = description;
+    this.adjRooms = new ArrayList<Room>();
+    this.ID = ID;
     this.image = image;
   }
 
@@ -146,7 +147,7 @@ public class Room {
    */
   public void draw() {
     processing.image(this.image, 0, 0);
-    processing.fill(7028);
+    processing.fill(-7028);
     processing.rect(0, 500, 800, 600);
     processing.fill(0);
     processing.text(this.toString(), 300, 525);
