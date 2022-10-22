@@ -1,6 +1,6 @@
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
-// Title: Exceptional Vending Machine
+// Title: Dragon Treasure Adventure 2.0
 // Course: CS 300 Fall 2022
 //
 // Author: Kenneth Oh
@@ -40,6 +40,8 @@ import processing.core.PImage;
  */
 public class DragonTreasureGame extends PApplet {
 
+  private ArrayList<Room> roomList;
+
   @Override
   public void settings() {
     size(800, 600);
@@ -55,7 +57,8 @@ public class DragonTreasureGame extends PApplet {
     this.focused = true; // window will be active upon running program
     this.textAlign(CENTER); // sets the text alignment to center
     this.textSize(20); // sets the font size for the text
-
+    roomList = new ArrayList<Room>();
+    Room.setProcessing();
   }
 
   public static void main(String[] args) {
