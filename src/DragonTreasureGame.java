@@ -59,18 +59,26 @@ public class DragonTreasureGame extends PApplet {
     this.textSize(20); // sets the font size for the text
     roomList = new ArrayList<Room>();
     Room.setProcessing(this);
+    TreasureRoom.setTreasureBackground(this.loadImage("images" + File.separator + "treasure.jpg"));
+    PortalRoom.setPortalImage(this.loadImage("images" + File.separator + "portal.png"));
+
     Room testRoom =
         new Room(1, "this is a test room", this.loadImage("images" + File.separator + "1.jpg"));
     roomList.add(testRoom);
-    Room startRoom = new StartRoom(2, this.loadImage("images" + File.separator + "2.jpg"));
+
+    Room startRoom = new StartRoom(2, this.loadImage("images" + File.separator + "1.jpg"));
     roomList.add(startRoom);
-    TreasureRoom.setTreasureBackground(this.loadImage("images" + File.separator + "treasure.jpg"));
+
     Room treasureRoom = new TreasureRoom(3);
     roomList.add(treasureRoom);
+
+    Room portalRoom =
+        new PortalRoom(3, "test portal room", this.loadImage("images" + File.separator + "1.jpg"));
+    roomList.add(portalRoom);
   }
 
   public void draw() {
-    roomList.get(2).draw();
+    roomList.get(3).draw();
   }
 
   public static void main(String[] args) {
