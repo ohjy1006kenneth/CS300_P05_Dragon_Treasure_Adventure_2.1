@@ -44,6 +44,8 @@ public class DragonTreasureGame extends PApplet {
   private File roomInfo;
   private File mapInfo;
   private ArrayList<Character> characters;
+  private boolean isDragonTurn = false;
+  private int gameState = 0;
 
   @Override
   public void settings() {
@@ -65,13 +67,65 @@ public class DragonTreasureGame extends PApplet {
     mapInfo = new File("map.txt");
 
     roomList = new ArrayList<Room>();
+    characters = new ArrayList<Character>();
+
+    loadRoomInfo();
+    loadMap();
+    loadCharacters();
+
     Room.setProcessing(this);
     TreasureRoom.setTreasureBackground(this.loadImage("images" + File.separator + "treasure.jpg"));
     PortalRoom.setPortalImage(this.loadImage("images" + File.separator + "portal.png"));
   }
 
   public void draw() {
-    roomList.get(3).draw();
+    characters.get(1).getCurrentRoom().draw();
+
+    // Check for Dragon Warning
+    if (((Player) characters.get(1)).isDragonNearby((Dragon) characters.get(2))) {
+      System.out.println(Dragon.getDragonWarning());
+    }
+
+    // Check for Portal Warning
+    if (((Player) characters.get(1)).isPortalNearby()) {
+      System.out.println(PortalRoom.getPortalWarning());
+    }
+
+    // Check for Treasure Warning
+    if (((Player) characters.get(1)).isTreasureNearby()) {
+      System.out.println(TreasureRoom.getTreasureWarning());
+    }
+
+    // Check if the player can grab the key
+    if (characters.get(1).getCurrentRoom().equals(characters.get(0).getCurrentRoom())) {
+      ((Player) characters.get(1)).obtainKey();
+      System.out.println("KEY OBTAINED");
+    }
+
+    // Check if the player needs to teleport
+    if (((Player) characters.get(1)).teleport()) {
+      System.out.println("The player has teleported");
+    }
+
+    // Check if it is the dragon's turn to move
+    if (isDragonTurn) {
+      if (((Dragon) characters.get(2)).changeRoom(((Dragon) characters.get(2)).pickRoom())) {
+        isDragonTurn = false;
+      }
+    }
+
+    // Check if the player won
+    if (((TreasureRoom) roomList.get(8)).playerCanGrabTreasure((Player) characters.get(1))) {
+      gameState = 1;
+      System.out.println("You won");
+    }
+
+    // Check if the player loss
+    if (characters.get(1).getCurrentRoom().equals(characters.get(2).getCurrentRoom())) {
+      gameState = 2;
+      System.out.println(Dragon.getDragonEncounter());
+      System.out.println("You Lost.");
+    }
   }
 
   public static void main(String[] args) {
@@ -190,11 +244,16 @@ public class DragonTreasureGame extends PApplet {
     Room toEdit = roomList.get(indexToEdit);
     return toEdit;
   }
-  
+
   private void loadCharacters() {
     System.out.println("Adding characters...");
-    characters.add(new Character(getRoomByID(5),"KEYHOLDER"));
+    characters.add(new Character(getRoomByID(5), "KEYHOLDER"));
     characters.add(new Player(getRoomByID(1)));
     characters.add(new Dragon(getRoomByID(9)));
-    }
+  }
+
+  @Override
+  public void keyPressed() {
+    
+  }
 }
