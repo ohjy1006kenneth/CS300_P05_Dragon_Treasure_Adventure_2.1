@@ -65,7 +65,7 @@ public class PortalRoom extends Room {
    */
   public Room getTeleportLocation() {
     int max = this.getAdjacentRooms().size();
-    int min = 1;
+    int min = 0;
     int randomNumber = randGen.nextInt(max + 1 - min) + min;
     return this.getAdjacentRooms().get(randomNumber);
   }

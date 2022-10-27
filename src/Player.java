@@ -67,6 +67,18 @@ public class Player extends Character implements Moveable {
   }
 
   /**
+   * Determines whether or not the given dragon is nearby. A dragon is considered nearby if it is in
+   * one of the adjacent rooms.
+   * 
+   * @param d the dragon to check if nearby
+   * @return true if the dragon is nearby, false otherwise
+   */
+  public boolean isDragonNearby(Dragon d) {
+    ArrayList<Room> adjRooms = this.getCurrentRoom().getAdjacentRooms();
+    return adjRooms.contains(d.getCurrentRoom());
+  }
+
+  /**
    * Determines whether or not a portal room is nearby. A portal room is considered nearby if it is
    * one of the adjacent rooms.
    * 

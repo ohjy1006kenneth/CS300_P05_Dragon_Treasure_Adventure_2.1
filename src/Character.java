@@ -42,7 +42,7 @@ public class Character {
    */
   public Character(Room currentRoom, String label) throws IllegalArgumentException {
     if (currentRoom == null) {
-      throw new IllegalArgumentException("Character()-Error: currentRoom should not be null.");
+      throw new IllegalArgumentException("Character()-Error: currentRoom is null.");
     }
     this.currentRoom = currentRoom;
     this.label = label;
