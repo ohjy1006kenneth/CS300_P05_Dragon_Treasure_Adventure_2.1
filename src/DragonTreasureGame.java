@@ -43,6 +43,7 @@ public class DragonTreasureGame extends PApplet {
   private ArrayList<Room> roomList;
   private File roomInfo;
   private File mapInfo;
+  private ArrayList<Character> characters;
 
   @Override
   public void settings() {
@@ -189,4 +190,11 @@ public class DragonTreasureGame extends PApplet {
     Room toEdit = roomList.get(indexToEdit);
     return toEdit;
   }
+  
+  private void loadCharacters() {
+    System.out.println("Adding characters...");
+    characters.add(new Character(getRoomByID(5),"KEYHOLDER"));
+    characters.add(new Player(getRoomByID(1)));
+    characters.add(new Dragon(getRoomByID(9)));
+    }
 }
