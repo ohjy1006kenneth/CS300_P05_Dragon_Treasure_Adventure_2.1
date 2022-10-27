@@ -50,16 +50,16 @@ public class TreasureRoom extends Room {
   }
 
   /**
-   * Determines whether or not the player can open the treasure chest in the room
+   * Determines whether or not the player can open the treasure chest in the room.
    * 
    * @param p the Player to check if they can open the chest
    * @return true if the player has the key and is in this TreasureRoom, false otherwise
    */
-  /*
-   * public boolean playerCanGrabTreasure(Player p) {
-   * 
-   * }
-   */
+  public boolean playerCanGrabTreasure(Player p) {
+    return p.getCurrentRoom() instanceof TreasureRoom;
+  }
+
+
 
   /**
    * Sets the background image for the TreasureRoom class
