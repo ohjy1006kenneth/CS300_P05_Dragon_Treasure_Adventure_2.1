@@ -63,6 +63,10 @@ public class DragonTreasureGame extends PApplet {
     this.textAlign(CENTER); // sets the text alignment to center
     this.textSize(20); // sets the font size for the text
 
+    Room.setProcessing(this);
+    TreasureRoom.setTreasureBackground(this.loadImage("images" + File.separator + "treasure.jpg"));
+    PortalRoom.setPortalImage(this.loadImage("images" + File.separator + "portal.png"));
+    
     roomInfo = new File("roominfo.txt");
     mapInfo = new File("map.txt");
 
@@ -73,13 +77,11 @@ public class DragonTreasureGame extends PApplet {
     loadMap();
     loadCharacters();
 
-    Room.setProcessing(this);
-    TreasureRoom.setTreasureBackground(this.loadImage("images" + File.separator + "treasure.jpg"));
-    PortalRoom.setPortalImage(this.loadImage("images" + File.separator + "portal.png"));
+    
   }
 
   public void draw() {
-    characters.get(1).getCurrentRoom().draw();
+    ((Player)characters.get(1)).getCurrentRoom().draw();
 
     // Check for Dragon Warning
     if (((Player) characters.get(1)).isDragonNearby((Dragon) characters.get(2))) {
@@ -254,6 +256,28 @@ public class DragonTreasureGame extends PApplet {
 
   @Override
   public void keyPressed() {
+
+    if (gameState != 0) {
+      return;
+    }
+
+    boolean moved = false;
     
+    int k = key - '0';
+    
+    for (int i = 0; i < roomList.size(); i++) {
+      if (k == roomList.get(i).getID()) {
+        if(((Player) characters.get(1)).changeRoom(roomList.get(i))) {
+          moved = true;
+          break;
+        }
+      }
+    }
+
+    if (moved) {
+      isDragonTurn = true;
+    } else {
+      System.out.println("Please pick a valid room.");
+    }
   }
 }

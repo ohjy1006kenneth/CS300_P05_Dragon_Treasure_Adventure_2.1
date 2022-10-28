@@ -15,6 +15,7 @@ public class Dragon extends Character implements Moveable {
    */
   public Dragon(Room currentRoom) throws IllegalArgumentException {
     super(currentRoom, "DRAGON");
+    randGen = new Random();
     if (currentRoom instanceof TreasureRoom == false) {
       throw new IllegalArgumentException("Dragon()-Error: currentRoom is not a TreasureRoom.");
     }
@@ -27,7 +28,9 @@ public class Dragon extends Character implements Moveable {
    * @return true if the change was successful, false otherwise
    */
   public boolean changeRoom(Room destination) {
-    this.setCurrentRoom(destination);
+    if (this.getAdjacentRooms().contains(destination)) {
+      this.setCurrentRoom(destination);
+    }
     return this.getCurrentRoom() == destination;
   }
 
@@ -56,8 +59,7 @@ public class Dragon extends Character implements Moveable {
     int randomNumber;
 
     while (true) {
-      randomNumber = randGen.nextInt(max + 1 - min) + min;
-
+      randomNumber = randGen.nextInt(max) + min;
       if (canMoveTo(this.getCurrentRoom().getAdjacentRooms().get(randomNumber))) {
         break;
       }

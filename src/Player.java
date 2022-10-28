@@ -37,7 +37,9 @@ public class Player extends Character implements Moveable {
    * @return true if the change was successful, false otherwise
    */
   public boolean changeRoom(Room destination) {
-    this.setCurrentRoom(destination);
+    if (this.getAdjacentRooms().contains(destination)) {
+      this.setCurrentRoom(destination);
+    }
     return this.getCurrentRoom() == destination;
   }
 

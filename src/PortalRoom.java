@@ -29,7 +29,7 @@ import java.util.Random;
 
 
 public class PortalRoom extends Room {
-  private Random randGen; // random number generator for location picking
+  private Random randGen = new Random(); // random number generator for location picking
   private static final String PORTAL_WARNING = "You feel a distortion in space nearby.\n";
   private static final String TELEPORT_MESSAGE =
       "The space distortion teleported you to another room!\n";
@@ -66,7 +66,7 @@ public class PortalRoom extends Room {
   public Room getTeleportLocation() {
     int max = this.getAdjacentRooms().size();
     int min = 0;
-    int randomNumber = randGen.nextInt(max + 1 - min) + min;
+    int randomNumber = randGen.nextInt(max) + min;
     return this.getAdjacentRooms().get(randomNumber);
   }
 
